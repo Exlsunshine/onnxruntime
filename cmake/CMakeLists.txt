@@ -370,7 +370,8 @@ else()
     string(APPEND CMAKE_CXX_FLAGS " -Wno-parentheses")
   endif()
   if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
-    string(APPEND CMAKE_CXX_FLAGS " -Wno-error=invalid-partial-specialization -Wno-error=missing-braces -Wno-error=inconsistent-missing-override")
+    #invalid-partial-specialization is needed for eigen 3.3.4. Updating eigen to the latest version can solve it
+    string(APPEND CMAKE_CXX_FLAGS " -Wno-error=missing-braces")
   endif()
 endif()
 
@@ -463,7 +464,7 @@ if (onnxruntime_USE_TVM)
     # wd4456: declaration of X hides previous local declaration
     set(DISABLED_WARNINGS_FOR_TVM "/wd4100" "/wd4244" "/wd4251" "/wd4267" "/wd4275" "/wd4389" "/wd4456")
   else()
-    set(DISABLED_WARNINGS_FOR_TVM "-Wno-error=extra" "-Wno-error=ignored-qualifiers")
+    set(DISABLED_WARNINGS_FOR_TVM "-Wno-error=ignored-qualifiers")
     if(HAS_UNUSED_PARAMETER)
       list(APPEND DISABLED_WARNINGS_FOR_TVM "-Wno-error=unused-parameter")
     endif()
