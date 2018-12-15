@@ -50,10 +50,10 @@ class Gemm final : public OpKernel {
     const auto W = context->Input<Tensor>(1);
     const auto B = context->Input<Tensor>(2);
     if (X->Shape().NumDimensions() != 2) {
-      return ONNXRUNTIME_MAKE_STATUS(ONNXRUNTIME, FAIL, "GEMM's first input has wrong dimension: ", ShapeToString(X->Shape()));
+      return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "GEMM's first input has wrong dimension: ", ShapeToString(X->Shape()));
     }
     if (W->Shape().NumDimensions() != 2) {
-      return ONNXRUNTIME_MAKE_STATUS(ONNXRUNTIME, FAIL, "GEMM's second input has wrong dimension: ", ShapeToString(W->Shape()));
+      return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "GEMM's second input has wrong dimension: ", ShapeToString(W->Shape()));
     }
 
     GemmHelper helper(X->Shape(), trans_A_ != CblasNoTrans, W->Shape(), trans_B_ != CblasNoTrans, B->Shape());
