@@ -54,7 +54,7 @@ Status GatherNDBase::PrepareForCompute(OpKernelContext* context, Prepare& p) con
   p.element_bytes    = input_tensor->DataType()->Size();
   p.element_to_copy  = input_shape.SizeFromDimension(last_indice_dimension);
   p.bytes_to_copy    = p.element_bytes * p.element_to_copy;
-  auto indice_offset = static_cast<const Tind*>(context->Input<Tensor>(1)->DataRaw());
+  auto indice_offset = static_cast<const Tind*>(indice_tensor->DataRaw());
   auto offset_count  = indice_shape.Size() / last_indice_dimension; // Times to copy
   p.element_offsets.assign(offset_count, 0LL);
 
@@ -62,7 +62,7 @@ Status GatherNDBase::PrepareForCompute(OpKernelContext* context, Prepare& p) con
     p.input_str_base  = static_cast<const std::string*>(input_tensor->DataRaw());
     p.output_str_base = static_cast<std::string*>(output_tensor->MutableDataRaw());
   } else {
-    p.input_base      = static_cast<const uint8_t*>(context->Input<Tensor>(0)->DataRaw());
+    p.input_base      = static_cast<const uint8_t*>(input_tensor->DataRaw());
     p.output_base     = static_cast<uint8_t*>(output_tensor->MutableDataRaw());
   }
 
