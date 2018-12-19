@@ -653,6 +653,24 @@ Example 4:
   output  = [[[2,3]],[[4,5]]]
 )DOC");
 
+    ONNX_CONTRIB_OPERATOR_SCHEMA( SequenceConvEmbedding )
+       .SetDomain( kMSDomain )
+       .SinceVersion( 1 )
+       .Input( 0, "Sequence", "Specified sequence to embedding", "T" )
+       .Input( 1, "W", "Specified weights of conv", "T1" )
+       .Input( 2, "B", "Specified bias of conv", "T1" )
+       .Input( 3, "C", "Specified weights of char embedding", "T1" )
+       .Output( 0, "Y", "output", "T1" )
+       .TypeConstraint(
+          "T",
+          { "tensor(int32)" },
+          "Constrain to tensor(int32)." )
+       .TypeConstraint(
+          "T1",
+          { "tensor(float)" },
+          "Constrain to tensor(float).")
+       .SetDoc( R"DOC(ExpandDims echo operator.)DOC" );
+
 }
 }  // namespace contrib
 }  // namespace onnxruntime
