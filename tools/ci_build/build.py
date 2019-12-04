@@ -171,7 +171,7 @@ def is_windows():
     return sys.platform.startswith("win")
 
 def is_ubuntu_1604():
-    return platform.linux_distribution()[0] == 'Ubuntu' and platform.linux_distribution()[1] == '16.04'
+    return True # return platform.linux_distribution()[0] == 'Ubuntu' and platform.linux_distribution()[1] == '16.04'
 
 def get_config_build_dir(build_dir, config):
     # build directory per configuration
